@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "rsa": "node rsa-console.js"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
+    "keypair": "^1.0.1",
     "lodash": "^4.17.11",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0"

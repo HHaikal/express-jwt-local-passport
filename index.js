@@ -9,8 +9,12 @@ const passportJwt = require('passport-jwt')
 var ExtractJwt = passportJwt.ExtractJwt;
 var JwtStrategy = passportJwt.Strategy;
 
+const fs = require('fs')
 const _ = require('lodash')
 const bodyParser = require('body-parser')
+
+// PART: middleware
+const authVerivy = require('./middleware/authVerify')
 
 /* --- PART: initialize */
 app.use(passport.initialize())
@@ -23,6 +27,7 @@ app.use(bodyParser.urlencoded({
 
 // parse application/json
 app.use(bodyParser.json())
+
 /* --- */
 
 /* --- PART: Strategy */
@@ -85,16 +90,21 @@ app.post('/login', (req, res, next) => {
     if (user.password === password) {
         // from now on we'll identify the user by the id and the id is the only personalized value that goes into our token
         var payload = { id: user.id };
-        var token = jwt.sign(payload, jwtOptions.secretOrKey);
+
+        var cert_priv = fs.readFileSync(__dirname + '/rsa-priv.pem');
+
+        var token = jwt.sign(payload, cert_priv, { algorithm: 'RS256' });
         res.json({ message: "ok", token: token });
     } else {
         res.sendStatus(403)
     }
 })
 
-app.get("/secret", passport.authenticate('jwt', { session: false }), function (req, res) {
-    res.json({ message: "Success! You can not see this without a token" });
-});
+app.get('/secret', authVerivy, (req, res) => {
+    res.status(200).json({
+        message: 'Sucess'
+    })
+})
 
 app.get("/secretDebug",
     function (req, res, next) {
