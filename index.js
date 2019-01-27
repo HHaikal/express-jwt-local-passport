@@ -1,21 +1,21 @@
 const express = require('express')
 const app = express()
 
-const jwt = require('jsonwebtoken')
-const passport = require('passport')
-const passportJwt = require('passport-jwt')
+// const jwt = require('jsonwebtoken')
+// const passport = require('passport')
+// const passportJwt = require('passport-jwt')
 const cowsay = require('cowsay')
 
-var ExtractJwt = passportJwt.ExtractJwt;
-var JwtStrategy = passportJwt.Strategy;
+// var ExtractJwt = passportJwt.ExtractJwt;
+// var JwtStrategy = passportJwt.Strategy;
 
-const _ = require('lodash')
+// const _ = require('lodash')
 const bodyParser = require('body-parser')
 
-const cors = require('cors')
+// const cors = require('cors')
 
 /* --- PART: initialize */
-app.use(passport.initialize())
+// app.use(passport.initialize())
 app.use(cors())
 
 // parse application/x-www-form-urlencoded
@@ -29,23 +29,23 @@ app.use(bodyParser.json())
 /* --- */
 
 /* --- PART: Strategy */
-const jwtOptions = {}
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-jwtOptions.secretOrKey = '8shots'
+// const jwtOptions = {}
+// jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+// jwtOptions.secretOrKey = '8shots'
 
 
-const strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
-    console.log('payload received', jwt_payload);
-    // usually this would be a database call:
-    var user = users[_.findIndex(users, { id: jwt_payload.id })];
-    if (user) {
-        next(null, user);
-    } else {
-        next(null, false);
-    }
-});
+// const strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
+//     console.log('payload received', jwt_payload);
+//     // usually this would be a database call:
+//     var user = users[_.findIndex(users, { id: jwt_payload.id })];
+//     if (user) {
+//         next(null, user);
+//     } else {
+//         next(null, false);
+//     }
+// });
 
-passport.use(strategy);
+// passport.use(strategy);
 /* --- */
 
 /* ---- PART: Fake Users */
