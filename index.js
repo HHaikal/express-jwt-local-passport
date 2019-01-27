@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000;
+const port = 5000;
 
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
@@ -12,8 +12,11 @@ var JwtStrategy = passportJwt.Strategy;
 const _ = require('lodash')
 const bodyParser = require('body-parser')
 
+const cors = require('cors')
+
 /* --- PART: initialize */
 app.use(passport.initialize())
+app.use(cors())
 
 // parse application/x-www-form-urlencoded
 // for easier testing with Postman or plain HTML forms
