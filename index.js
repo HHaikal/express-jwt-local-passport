@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const path = require('path')
 
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
@@ -17,6 +18,10 @@ const cors = require('cors')
 /* --- PART: initialize */
 app.use(passport.initialize())
 app.use(cors())
+
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, 'client/build')))
 
 // parse application/x-www-form-urlencoded
 // for easier testing with Postman or plain HTML forms
@@ -66,6 +71,7 @@ const users = [
 
 
 /* --- PART: route */
+
 
 app.get('/', (req, res, next) => {
     try {
