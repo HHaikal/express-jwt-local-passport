@@ -12,7 +12,7 @@ const cowsay = require('cowsay')
 // const _ = require('lodash')
 const bodyParser = require('body-parser')
 
-// const cors = require('cors')
+const cors = require('cors')
 
 /* --- PART: initialize */
 // app.use(passport.initialize())
