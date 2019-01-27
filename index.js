@@ -19,10 +19,6 @@ const cors = require('cors')
 app.use(passport.initialize())
 app.use(cors())
 
-
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')))
-
 // parse application/x-www-form-urlencoded
 // for easier testing with Postman or plain HTML forms
 app.use(bodyParser.urlencoded({
@@ -71,10 +67,6 @@ const users = [
 
 
 /* --- PART: route */
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
 
 app.get('/', (req, res, next) => {
     try {
