@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const port = 5000;
 
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
@@ -111,4 +110,7 @@ app.get('/', (req, res, next) => {
 
 // /* --- */
 
-app.listen(port, () => console.log(`express running in port ${port}`))
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () => {
+    console.log(`Mixing it up on port ${PORT}`)
+})
