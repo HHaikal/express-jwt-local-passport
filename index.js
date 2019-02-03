@@ -15,6 +15,12 @@ const bodyParser = require('body-parser')
 
 const cors = require('cors')
 
+/** Graphql */
+const graphqlHTTP = require('express-graphql')
+const { buildSchema } = require('graphql')
+
+const schema = require('./schema')
+
 /* --- PART: initialize */
 app.use(passport.initialize())
 app.use(cors())
@@ -27,6 +33,30 @@ app.use(bodyParser.urlencoded({
 
 // parse application/json
 app.use(bodyParser.json())
+/* --- */
+
+/* --- PART: Graphql */
+
+// PART: Schema
+// const schema = buildSchema(`
+//     type Query {
+//         hello: String
+//     }
+// `)
+
+
+// // PART: Root
+// const root = {
+//     hello: () => {
+//         return 'Hello World'
+//     }
+// }
+
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    // rootValue: root,
+    graphiql: true
+}))
 /* --- */
 
 /* --- PART: Strategy */
@@ -108,7 +138,7 @@ app.get("/secretDebug",
         res.json("debugging");
     });
 
-// /* --- */
+/* --- */
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
